@@ -21,13 +21,9 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
 	Route::resource('documents', DocumentController::class);
-	// Ruta para aprobar documentos utilizando el método PATCH
-	Route::middleware('auth')->patch('/documents/approve/{id}', [DocumentController::class, 'approve'])->name('documents.approve');
 
-	// Ruta para rechazar documentos utilizando el método PATCH
-	Route::middleware('auth')->patch('/documents/reject/{id}', [DocumentController::class, 'reject'])->name('documents.reject');
-
-	// Ruta para eliminar documentos utilizando el método DELETE
+	Route::patch('/documents/approve/{id}', [DocumentController::class, 'approve'])->name('documents.approve');
+	Route::patch('/documents/reject/{id}', [DocumentController::class, 'reject'])->name('documents.reject');
 	Route::middleware('auth')->delete('/documents/{id}', [DocumentController::class, 'destroy'])->name('documents.destroy');
 
 

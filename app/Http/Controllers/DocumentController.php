@@ -91,22 +91,23 @@ class DocumentController extends Controller {
         return view('documents.show', compact('document'));
     }
 
-	public function approve(Request $request, $id) {
+	public function approve(Request $request, $id)
+	{
 		if (!auth()->user()->can('aprobar documentos')) {
 			abort(403, 'No tienes permisos para aprobar documentos.');
 		}
 
 		$document = Document::findOrFail($id);
 
-		// Marcar como aprobado y registrar el usuario que lo aprobó
+		// Actualizar el estado de aprobación
 		$document->update([
 			'aprobado' => true,
 			'fecha_aprobacion' => now(),
 			'aprobado_por' => auth()->user()->id,
-			'revisado_por' => null // Borrar registro de rechazo si fue aprobado
+			'revisado_por' => null
 		]);
 
-		return redirect()->back()->with('success', 'Documento aprobado');
+		return response()->json(['message' => 'Documento aprobado exitosamente.'], 200);
 	}
 
 	public function reject(Request $request, $id) {
@@ -122,7 +123,7 @@ class DocumentController extends Controller {
 			'aprobado_por' => null // Borrar registro de aprobación si fue rechazado
 		]);
 
-		return redirect()->back()->with('success', 'Documento rechazado');
+		return response()->json(['message' => 'Documento rechazado exitosamente.'], 200);
 	}
 
     // Método para eliminar un documento
