@@ -128,6 +128,7 @@ class DocumentAPI {
 			if (response.status === 200) {
 				const data = await response.json();
 				Swal.fire('Eliminado', data.message, 'success');
+				this.getDocuments().then(data => this.renderDocuments(data, ['aprobar documentos', 'rechazar documentos', 'borrar documentos']));
 				return data;
 			} else {
 				const errorData = await response.json();
