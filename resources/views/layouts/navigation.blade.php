@@ -22,11 +22,11 @@
                     </x-nav-link>
 
                     <!-- Enlace a Gestión de Usuarios (solo visible para administradores) -->
-                    @can('ver usuarios')
-                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
-                            {{ __('Gestión de Usuarios') }}
-                        </x-nav-link>
-                    @endcan
+					@if(auth()->user()->hasRole('Administración'))
+						<x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+							{{ __('Gestión de Usuarios') }}
+						</x-nav-link>
+					@endif
                 </div>
             </div>
 
@@ -85,11 +85,11 @@
             <x-responsive-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.index')">
                 {{ __('Documentación') }}
             </x-responsive-nav-link>
-            @can('ver usuarios')
+            @if(auth()->user()->hasRole('Administración'))
                 <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                     {{ __('Gestión de Usuarios') }}
                 </x-responsive-nav-link>
-            @endcan
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

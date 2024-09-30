@@ -1,1 +1,1 @@
-<img src="{{ asset('images/icloudcompliancelogoRT-3.png') }}" alt="Logo" {{ $attributes }}>
+<img src="{{ asset('images/icloudcompliancelogoRT-3.png') }}" alt="Logo" class="h-9 w-auto">

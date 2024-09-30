@@ -16,7 +16,7 @@ return new class extends Migration
 			$table->string('title');
 			$table->text('description');
 			$table->enum('relevancia', ['Alta', 'Media', 'Baja']);
-			$table->date('fecha_aprobacion');
+			$table->date('fecha_aprobacion')->nullable();
 			$table->string('path');
 			$table->string('file_hash')->nullable(); // Campo para almacenar el hash del archivo
 			$table->unsignedBigInteger('user_id');

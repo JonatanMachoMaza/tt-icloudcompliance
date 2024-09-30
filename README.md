@@ -8,17 +8,29 @@ Este proyecto es una prueba técnica para iCloudCompliance. La aplicación está
 ## Requisitos
 
 - Base de datos: MySQL o MariaDB.
+- PHP 8.2
+- Laravel
+- Composer
+- npm
 
 ## Instalación
 
 1. Clona este repositorio:
 <pre>git clone https://github.com/JonatanMachoMaza/tt-icloudcompliance</pre>
-2. Ejecuta las dependencias:
+2. Ejecuta las dependencias dentro del directorio donde instalaste el repositorio:
 <pre>composer install</pre>
 <pre>npm install</pre>
-3. Configura tu archivo `.env` y ejecuta las migraciones con artisan:
+3. Configura tu DB con el archivo `.env` y ejecuta las migraciones con artisan:
+<pre>
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=icloudcompliance
+DB_USERNAME=TU_USUARIO
+DB_PASSWORD=TU_CONTRASEÑA
+</pre>
 <pre>php artisan key:generate</pre>
-4. Ejecutra las migraciones y carga los datos iniciales:
+4. Ejecuta las migraciones y carga los datos iniciales:
 <pre>php artisan migrate</pre>
 <pre>php artisan db:seed</pre>
 
@@ -26,11 +38,11 @@ Este proyecto es una prueba técnica para iCloudCompliance. La aplicación está
 
 Se crea un usuario por defecto con las siguientes credenciales:
 
-- **Nombre:** Nombre del usuario
-- **Email:** email@example.com
-- **Contraseña:** test
+- **Nombre:** Admin
+- **Email:** test@example.com
+- **Contraseña:** password
 
 ## Uso
 
-Accede a la aplicación a través de `http://localhost:8000`. Crea un usuario con permisos de administrador para gestionar los documentos.
+Accede a la aplicación a través de `http://localhost:8000`.
 
