@@ -11,10 +11,16 @@ Este proyecto es una prueba técnica para iCloudCompliance. La aplicación está
 
 ## Instalación
 
-1. Clona este repositorio.
-2. Ejecuta `composer install` para instalar las dependencias.
-3. Configura tu archivo `.env` y ejecuta las migraciones con `php artisan migrate`.
-4. Carga los datos iniciales con `php artisan db:seed`.
+1. Clona este repositorio:
+<pre>git clone https://github.com/JonatanMachoMaza/tt-icloudcompliance</pre>
+2. Ejecuta las dependencias:
+<pre>composer install</pre>
+<pre>npm install</pre>
+3. Configura tu archivo `.env` y ejecuta las migraciones con artisan:
+<pre>php artisan key:generate</pre>
+4. Ejecutra las migraciones y carga los datos iniciales:
+<pre>php artisan migrate</pre>
+<pre>php artisan db:seed</pre>
 
 ### Usuarios por defecto
 

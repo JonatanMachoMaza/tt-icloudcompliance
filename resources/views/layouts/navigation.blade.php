@@ -15,6 +15,18 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <!-- Enlace a Documentación -->
+                    <x-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.index')">
+                        {{ __('Documentación') }}
+                    </x-nav-link>
+
+                    <!-- Enlace a Gestión de Usuarios (solo visible para administradores) -->
+                    @can('ver usuarios')
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                            {{ __('Gestión de Usuarios') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -70,6 +82,14 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.index')">
+                {{ __('Documentación') }}
+            </x-responsive-nav-link>
+            @can('ver usuarios')
+                <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                    {{ __('Gestión de Usuarios') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

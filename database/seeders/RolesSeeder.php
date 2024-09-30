@@ -7,8 +7,8 @@ use Spatie\Permission\Models\Role;
 
 class RolesSeeder extends Seeder {
     public function run() {
-        Role::create(['name' => 'Administración']);
-        Role::create(['name' => 'Responsable']);
-        Role::create(['name' => 'Asignado']);
+        Role::firstOrCreate(['name' => 'Administración']);
+        Role::firstOrCreate(['name' => 'Responsable']);
+        Role::firstOrCreate(['name' => 'Asignado']);
     }
 }
