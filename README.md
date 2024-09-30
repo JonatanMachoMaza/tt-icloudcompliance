@@ -63,3 +63,118 @@ Se crea un usuario por defecto con las siguientes credenciales:
 
 Accede a la aplicación a través de `http://localhost:8000`.
 
+## Documentación de la API
+
+### Descripción
+Esta API está diseñada para gestionar documentos dentro de la plataforma, con endpoints protegidos por middleware `auth`, lo cual significa que solo los usuarios autenticados pueden acceder a ellos. A continuación, se describen los endpoints disponibles y su funcionalidad:
+
+### Endpoints
+
+1. **GET /api/documents**
+   - **Descripción**: Obtiene la lista de todos los documentos disponibles para el usuario autenticado.
+   - **Protección**: Este endpoint está protegido por autenticación (`auth`), por lo que solo los usuarios autenticados pueden acceder a él.
+   - **Respuesta**:
+     ```json
+     [
+       {
+         "id": 1,
+         "titulo": "Documento 1",
+         "estado": "aprobado",
+         "fecha_creacion": "2024-09-30",
+         ...
+       },
+       ...
+     ]
+     ```
+
+2. **GET /api/document-statistics**
+   - **Descripción**: Proporciona estadísticas relacionadas con los documentos, como la cantidad de documentos aprobados, rechazados o pendientes de revisión.
+   - **Protección**: Requiere autenticación (`auth`) para acceder.
+   - **Respuesta**:
+     ```json
+     {
+       "total": 150,
+       "aprobados": 120,
+       "rechazados": 10,
+       "pendientes": 20
+     }
+     ```
+
+3. **GET /documents/download/{id}**
+   - **Descripción**: Descarga un documento específico identificado por su ID.
+   - **Protección**: Este endpoint está protegido por autenticación (`auth`). Solo los usuarios autenticados pueden descargar documentos.
+   - **Parámetro**: 
+     - `id` (int): ID del documento que se desea descargar.
+   - **Respuesta**: Devuelve el archivo del documento para su descarga.
+
+4. **POST /documents**
+   - **Descripción**: Crea un nuevo documento en la plataforma.
+   - **Protección**: Este endpoint no especifica autenticación, por lo que se asume que es accesible sin autenticación (verificar si es intencionado).
+   - **Body**: El cuerpo de la solicitud debe contener la información necesaria para crear un documento.
+     ```json
+     {
+       "titulo": "Nuevo Documento",
+       "contenido": "Contenido del documento...",
+       "autor_id": 5
+     }
+     ```
+   - **Respuesta**: 
+     ```json
+     {
+       "mensaje": "Documento creado exitosamente",
+       "documento": {
+         "id": 151,
+         "titulo": "Nuevo Documento",
+         "estado": "pendiente",
+         ...
+       }
+     }
+     ```
+
+5. **PATCH /documents/approve/{id}**
+   - **Descripción**: Aprueba un documento específico identificado por su ID.
+   - **Protección**: Requiere autenticación y se asume que el usuario autenticado debe tener permisos para aprobar documentos.
+   - **Parámetro**: 
+     - `id` (int): ID del documento a aprobar.
+   - **Respuesta**:
+     ```json
+     {
+       "mensaje": "Documento aprobado exitosamente",
+       "documento": {
+         "id": 151,
+         "estado": "aprobado",
+         ...
+       }
+     }
+     ```
+
+6. **PATCH /documents/reject/{id}**
+   - **Descripción**: Rechaza un documento específico identificado por su ID.
+   - **Protección**: Requiere autenticación y se asume que el usuario autenticado debe tener permisos para rechazar documentos.
+   - **Parámetro**: 
+     - `id` (int): ID del documento a rechazar.
+   - **Respuesta**:
+     ```json
+     {
+       "mensaje": "Documento rechazado exitosamente",
+       "documento": {
+         "id": 151,
+         "estado": "rechazado",
+         ...
+       }
+     }
+     ```
+
+7. **DELETE /documents/{id}**
+   - **Descripción**: Elimina un documento específico identificado por su ID.
+   - **Protección**: Endpoint protegido por autenticación (`auth`). Solo los usuarios autenticados pueden acceder y deben tener permisos para eliminar documentos.
+   - **Parámetro**: 
+     - `id` (int): ID del documento a eliminar.
+   - **Respuesta**:
+     ```json
+     {
+       "mensaje": "Documento eliminado exitosamente"
+     }
+     ```
+
+
