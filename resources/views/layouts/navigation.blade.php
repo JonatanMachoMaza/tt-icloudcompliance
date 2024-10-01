@@ -22,7 +22,7 @@
                     </x-nav-link>
 
                     <!-- Enlace a Gestión de Usuarios (solo visible para administradores) -->
-					@if(auth()->user()->hasRole('Administración'))
+					@if(auth()->user() && auth()->user()->hasRole('Administración'))
 						<x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
 							{{ __('Gestión de Usuarios') }}
 						</x-nav-link>
@@ -31,6 +31,7 @@
             </div>
 
             <!-- Settings Dropdown -->
+			@if(auth()->user())
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
@@ -63,7 +64,7 @@
                     </x-slot>
                 </x-dropdown>
             </div>
-
+			@endif
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
@@ -85,13 +86,13 @@
             <x-responsive-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.index')">
                 {{ __('Documentación') }}
             </x-responsive-nav-link>
-            @if(auth()->user()->hasRole('Administración'))
+            @if(auth()->user() && auth()->user()->hasRole('Administración'))
                 <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
                     {{ __('Gestión de Usuarios') }}
                 </x-responsive-nav-link>
             @endif
         </div>
-
+		@if(auth()->user())
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
@@ -116,5 +117,6 @@
                 </form>
             </div>
         </div>
+		@endif
     </div>
 </nav>

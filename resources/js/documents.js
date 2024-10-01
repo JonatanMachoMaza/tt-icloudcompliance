@@ -294,12 +294,7 @@ class DocumentAPI {
 			// Crear la fila con los datos del documento y las acciones
 			const row = `
 				<tr>
-					<td class="px-6 py-4 whitespace-nowrap">${document.title}</td>
-					<td class="px-6 py-4 whitespace-nowrap">
-						<span class="cursor-pointer" data-tippy-content="${document.description}">
-							<i class="fas fa-comment-alt text-gray-500 mr-1"></i> Descripción
-						</span>
-					</td>
+					<td class="px-6 py-4 whitespace-nowrap"><span class="cursor-pointer" data-tippy-content="${document.description}"><i class="fas fa-comment-alt text-gray-500 mr-1"></i></span> ${document.title}</td>
 					<td class="px-6 py-4 whitespace-nowrap">${document.relevancia}</td>
 					<td class="px-6 py-4 whitespace-nowrap">
 						${document.aprobado ? (document.fecha_aprobacion ? new Date(document.fecha_aprobacion).toLocaleDateString() : 'No disponible') : 'No aprobado'}
