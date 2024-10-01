@@ -123,7 +123,7 @@ Esta API está diseñada para gestionar documentos dentro de la plataforma, con 
 
 4. **POST /documents**
    - **Descripción**: Crea un nuevo documento en la plataforma.
-   - **Protección**: Este endpoint no especifica autenticación, por lo que se asume que es accesible sin autenticación (verificar si es intencionado).
+   - **Protección**: Este endpoint especifica autenticación.
    - **Body**: El cuerpo de la solicitud debe contener la información necesaria para crear un documento.
      ```json
      {
