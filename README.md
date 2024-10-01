@@ -60,8 +60,22 @@ Se crea un usuario por defecto con las siguientes credenciales:
 - **Contraseña:** password
 
 ## Uso
+Usar terminal del SO en local.
 
-Accede a la aplicación a través de `http://localhost:8000`.
+En entorno de pruebas:
+<pre>php artisan serve</pre>
+
+En producción modifique su .env:
+<pre>
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://tu-dominio.com (o http://localhost si es local)
+</pre>
+
+Apertura en producción desde local:
+<pre>php artisan serve --env=production</pre>
+
+Accede a la aplicación a en local `http://localhost:8000`.
 
 ## Documentación de la API
 
