@@ -159,38 +159,46 @@ class DocumentController extends Controller {
 	}
 
 	// Método Api ENDPOINT.
-	public function apiIndex(Request $request) {
-        // Obtener filtros y órdenes
-        $relevancia = $request->input('relevancia');
-        $order = $request->input('order', 'created_at'); // Orden por fecha por defecto
-        $direction = $request->input('direction', 'asc'); // Ascendente por defecto
-        $search = $request->input('search'); // Filtro por título o descripción
 
-        // Construir consulta base
-        $documents = Document::query();
+public function apiIndex(Request $request) {
+    // Obtener filtros y órdenes
+    $relevancia = $request->input('relevancia');
+    $order = $request->input('order', 'created_at'); // Orden por fecha por defecto
+    $direction = $request->input('direction', 'asc'); // Ascendente por defecto
+    $search = $request->input('search'); // Filtro por título o descripción
 
-        // Filtrar por relevancia si se ha proporcionado
-        if ($relevancia) {
-            $documents->where('relevancia', $relevancia);
-        }
-
-        // Filtrar por búsqueda en título o descripción
-        if ($search) {
-            $documents->where(function ($query) use ($search) {
-                $query->where('title', 'like', "%{$search}%")
-                      ->orWhere('description', 'like', "%{$search}%");
-            });
-        }
-
-        // Ordenar los documentos
-        $documents->orderBy($order, $direction);
-
-        // Obtener los documentos paginados
-        $documents = $documents->with(['aprobadoPor', 'user'])->paginate(10);
-
-        // Retornar respuesta en formato JSON
-        return response()->json($documents);
+    // Validar el parámetro order para que sea una columna válida
+    $validOrders = ['created_at', 'updated_at', 'relevancia']; // Lista de columnas permitidas
+    if (!in_array($order, $validOrders)) {
+        $order = 'created_at'; // Revertir a created_at si el valor no es válido
     }
+
+    // Construir consulta base
+    $documents = Document::query();
+
+    // Filtrar por relevancia si se ha proporcionado
+    if ($relevancia) {
+        $documents->where('relevancia', $relevancia);
+    }
+
+    // Filtrar por búsqueda en título o descripción
+    if ($search) {
+        $documents->where(function ($query) use ($search) {
+            $query->where('title', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%");
+        });
+    }
+
+    // Ordenar los documentos
+    $documents->orderBy($order, $direction);
+
+    // Obtener los documentos paginados
+    $documents = $documents->with(['aprobadoPor', 'user'])->paginate(10);
+
+    // Retornar respuesta en formato JSON
+    return response()->json($documents);
+}
+
 
 	// Método para obtener las estadísticas en json
     public function getDocumentStatistics() {

@@ -344,6 +344,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const userPermissions = ['aprobar documentos', 'rechazar documentos', 'borrar documentos']; // Permisos simulados, cámbialos según sea necesario.
     const documentAPI = new DocumentAPI('http://localhost:8000', 'TU_TOKEN');
 
+    // Obtener referencias a los elementos del DOM
+    const searchInput = document.getElementById('search');
+    const relevanciaSelect = document.getElementById('filter-relevancia');
+    const orderSelect = document.getElementById('order-date');
+
+    // Función para obtener y renderizar los documentos
+	const fetchAndRenderDocuments = () => {
+		const search = searchInput.value;
+		const relevancia = relevanciaSelect.value;
+		const order = 'created_at'; // Cambiar por la columna por defecto (created_at)
+		const direction = orderSelect.value || 'desc'; // Utilizar la dirección del select
+
+		documentAPI.getDocuments(relevancia, order, direction, search).then(data => {
+			if (data) {
+				documentAPI.renderDocuments(data, userPermissions);
+			}
+		});
+	};
+
+
+    // Agregar eventos a los selectores y campo de búsqueda
+    relevanciaSelect.addEventListener('change', fetchAndRenderDocuments);
+    orderSelect.addEventListener('change', fetchAndRenderDocuments);
+    searchInput.addEventListener('input', () => {
+        // Agregar un pequeño retraso antes de hacer la búsqueda (debounce)
+        clearTimeout(searchInput.debounceTimeout);
+        searchInput.debounceTimeout = setTimeout(fetchAndRenderDocuments, 500);
+    });
+
     // Obtener y renderizar los documentos al cargar la página
     documentAPI.getDocuments().then(data => {
         if (data) {
