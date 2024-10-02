@@ -75,7 +75,7 @@ APP_URL=https://tu-dominio.com (o http://localhost si es local)
 Apertura en producción desde local:
 <pre>php artisan serve --env=production</pre>
 
-Accede a la aplicación a en local `http://localhost:8000`.
+Accede a la aplicación en local `http://localhost:8000`.
 
 ## Documentación de la API
 
